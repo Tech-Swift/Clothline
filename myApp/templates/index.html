@@ -41,7 +41,7 @@
     <!-- ===============================================-->
     <main class="main" id="top">
       <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3 d-block" data-navbar-on-scroll="data-navbar-on-scroll">
-        <div class="container"><a class="navbar-brand d-inline-flex" href="{% url 'landing' %}"><img class="d-inline-block" src="{% static 'assets/img/gallery/logo.png' %}" alt="logo" /><span class="text-1000 fs-0 fw-bold ms-2">Majestic</span></a>
+        <div class="container"><a class="navbar-brand d-inline-flex" href="{% url 'landing' %}"><img class="d-inline-block" src="{% static 'assets/img/gallery/logo.png' %}" width="34" height="23" alt="logo" /><span class="text-1000 fs-0 fw-bold ms-2">Clothline</span></a>
           <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
           <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -110,7 +110,7 @@
             <div class="col-6 col-lg-2 mb-3">
               <h5 class="lh-lg fw-bold text-1000">Customer Care</h5>
               <ul class="list-unstyled mb-md-4 mb-lg-0">
-                <li class="lh-lg"><a class="text-800 text-decoration-none" href="#!">Contact Us</a></li>
+                <li class="lh-lg"><a class="text-800 text-decoration-none" href="{% url 'contact' %}">Contact Us</a></li>
                 <li class="lh-lg"><a class="text-800 text-decoration-none" href="#!">Payment Methods</a></li>
                 <li class="lh-lg"><a class="text-800 text-decoration-none" href="#!">Bonus Point</a></li>
               </ul>
