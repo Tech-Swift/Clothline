@@ -1,0 +1,41 @@
+{% extends 'index.html' %}
+{% load static %}
+
+ {% block content %}
+
+<section class="py-11 bg-light-gradient border-bottom border-white border-5">
+    <div class="container">
+        <div class="row flex-center">
+            <div class="col-12 mb-10">
+                <div class="d-flex align-items-center flex-column">
+                    <h1 class="fw-normal">With an outstanding style, only for you</h1>
+                    <h1 class="fs-4 fs-lg-8 fs-md-6 fw-bold">Exclusively designed for you</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <div class="row h-100 g-0">
+            <div class="col-md-6">
+                <div class="bg-300 p-4 h-100 d-flex flex-column justify-content-center">
+                    <h1 class="fw-semi-bold lh-sm fs-4 fs-lg-5 fs-xl-6">Gentle Formal Looks</h1>
+                    <p class="mb-5 fs-1">We provide the top formal apparel package to make your job look confident and comfortable. Stay connected.</p>
+                    <div class="d-grid gap-2 d-md-block">
+                        <a class="btn btn-lg btn-dark" href="#!" role="button">Explore Collection</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card card-span h-100 text-white">
+                    <img class="card-img h-100" src="{% static 'assets/img/gallery/outfit.png' %}" alt="..." />
+                    <a class="stretched-link" href="#!"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
