@@ -1,0 +1,25 @@
+{% extends 'index.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1>Our Collection</h1>
+        {% for item in items %}
+            <div class="item">
+                {% if item.image %}
+                <img src="{{ MEDIA_URL }}{{ item.image }}" alt="{{ item.name }}">
+                {% endif %}
+                <div class="item-details">
+                    <h2>{{ item.name }}</h2>
+                    <p><strong>Category:</strong> {{ item.category }}</p>
+                    <p><strong>Type:</strong> {{ item.get_category_choices_display }}</p>
+                    <p><strong>Brand:</strong> {{ item.brand }}</p>
+                    <p><strong>Price:</strong> ${{ item.price }}</p>
+                    <p>{{ item.description }}</p>
+                    <small>Added on: {{ item.created_at|date:"F d, Y" }}</small>
+                </div>
+            </div>
+        {% empty %}
+            <p>No items available.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

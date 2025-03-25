@@ -1,16 +1,18 @@
 from django.db import models
 
-# Category model to classify items
-class Category(models.Model):
-    name = models.CharField(max_length=100)
-    description = models.TextField(blank=True, null=True)
-    CATEGORY_CHOICES = [
+CATEGORY_CHOICES = [
         ('MEN', 'Men'),
         ('WOMEN', 'Women'),
         ('KIDS', 'Kids'),
         ('ACCESSORIES', 'Accessories'),
     ]
-    category_type = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='MEN')
+
+# Category model to classify items
+class Category(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField(blank=True, null=True)
+   
+    category_type = models.CharField(max_length=20, default='shirt')
     def __str__(self):
         return self.name
 
@@ -28,6 +30,7 @@ class Item(models.Model):
     description = models.TextField(blank=True, null=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category_choices = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='shirt')
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='items/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
