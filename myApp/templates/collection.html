@@ -1,25 +1,37 @@
 {% extends 'index.html' %}
+{% load static %}
+
+{% block extra_css %} 
+
+<link href="{% static 'assets/css/collection.css' %}" rel="stylesheet" />
+
+{% endblock %}
 
 {% block content %}
     <div class="container">
         <h1>Our Collection</h1>
-        {% for item in items %}
-            <div class="item">
+        <div class="cards-wrapper">
+            {% for item in items %}
+            <div class="card" style="width: 18rem;">
                 {% if item.image %}
-                <img src="{{ MEDIA_URL }}{{ item.image }}" alt="{{ item.name }}">
+                <img src="{{ MEDIA_URL }}{{ item.image }}" class="card-img-top" alt="{{ item.name }}">
                 {% endif %}
-                <div class="item-details">
-                    <h2>{{ item.name }}</h2>
-                    <p><strong>Category:</strong> {{ item.category }}</p>
-                    <p><strong>Type:</strong> {{ item.get_category_choices_display }}</p>
-                    <p><strong>Brand:</strong> {{ item.brand }}</p>
-                    <p><strong>Price:</strong> ${{ item.price }}</p>
-                    <p>{{ item.description }}</p>
-                    <small>Added on: {{ item.created_at|date:"F d, Y" }}</small>
+                
+                <div class="card-body">
+                    <h5 class="card-title">{{ item.name }}</h5>
+                    <p class="card-text">
+                        <strong>Category:</strong> {{ item.category }}<br>
+                        <strong>Type:</strong> {{ item.get_category_choices_display }}<br>
+                        <strong>Brand:</strong> {{ item.brand }}<br>
+                        <strong>Price:</strong> ${{ item.price }}<br>
+                        {{ item.description }}
+                    </p>
+                    <small class="text-muted">Added on: {{ item.created_at|date:"F d, Y" }}</small>
                 </div>
             </div>
-        {% empty %}
-            <p>No items available.</p>
-        {% endfor %}
+            {% endfor %}
     </div>
 {% endblock %}
+
+
+
