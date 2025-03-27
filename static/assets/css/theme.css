@@ -4830,6 +4830,7 @@ fieldset:disabled .btn {
 }
 
 .navbar-collapse {
+  display: none;
   -ms-flex-preferred-size: 100%;
   flex-basis: 100%;
   -webkit-box-flex: 1;

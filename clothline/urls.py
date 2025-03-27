@@ -33,6 +33,8 @@ urlpatterns = [
 
     path('login/', views.login_view, name='login'),
 
+    path('login-success/', views.login_success, name='login_success'),
+
     path('collection/', views.collection_view, name='collection'),
 
     path('accounts/', include('allauth.urls')),
