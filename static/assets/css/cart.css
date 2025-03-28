@@ -1,0 +1,86 @@
+/* Shopping cart container */
+h2 {
+    text-align: center;
+    color: #ff5722;
+    margin-top: 20px;
+    font-size: 2rem;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px auto;
+    max-width: 600px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+li {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+li:last-child {
+    border-bottom: none;
+}
+
+a {
+    text-decoration: none;
+    color: #ff5722;
+    font-weight: bold;
+}
+
+a:hover {
+    color: #e64a19;
+}
+
+/* Total price */
+p {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    margin: 20px 0;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px auto;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #ff5722;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #e64a19;
+}
+
+.btn-secondary {
+    background-color: #607d8b;
+    color: #fff;
+}
+
+.btn-secondary:hover {
+    background-color: #455a64;
+}
+
+/* Empty cart message */
+p {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #757575;
+}
