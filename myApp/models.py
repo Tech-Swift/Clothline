@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.contrib.auth import get_user_model
 
 class CustomUser(AbstractUser):
     phone = models.CharField(max_length=15, blank=True, null=True)
@@ -76,3 +77,13 @@ class CartItem(models.Model):
 
     def __str__(self):
         return f"{self.quantity} x {self.item.name} in {self.cart}"
+
+User = get_user_model()  # Dynamically get the custom user model
+
+class Wishlist(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    items = models.ManyToManyField(Item, related_name='wishlist_items')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Wishlist of {self.user.username}"

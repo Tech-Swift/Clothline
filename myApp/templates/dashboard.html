@@ -1,0 +1,17 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<h1>Welcome, {{ user.username }}!</h1>
+<p>You have <span id="cart-count">{{ cart_items|length }}</span> items in your cart.</p>
+
+<h2>Your Wishlist</h2>
+<ul>
+    {% for item in wishlist_items %}
+        <li>{{ item.name }} - <a href="{% url 'remove_wishlist' item.id %}">Remove</a></li>
+    {% empty %}
+        <p>No items in your wishlist.</p>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'logout' %}">Logout</a>
+{% endblock %}

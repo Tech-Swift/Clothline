@@ -1,109 +1,145 @@
-/* Styling for the collection page */
-.card {
-    width: 18rem;
-    margin-bottom: 20px;
+/* Collection Section */
+.collection-container-fluid {
+    width: 100%;
+    padding: 40px 0;
 }
-
-.card-img-top {
-    border-bottom: 1px solid #ddd;
-}
-
-.card-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
-}
-
-.card-title {
-    font-weight: bold;
-    text-transform: capitalize;
-}
-
-.card-text strong {
-    display: inline-block;
-    margin-bottom: 5px;
-}
-
-.text-muted {
-    margin-top: 10px;
-    display: block;
-    text-align: right;
-    font-style: italic;
-}
-/* General container styling */
-.container {
-    max-width: 1200px;
+.collection-container {
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 20px;
-    font-family: Arial, sans-serif;
-}
-
-.container h1 {
+    padding: 30px 20px;
     text-align: center;
-    margin-bottom: 30px;
-    font-size: 2.5rem;
-    color: #333;
+    font-family: 'Arial', sans-serif;
 }
 
-/* Cards wrapper styling */
+/* Cards Layout */
 .cards-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Dynamic resizing */
+    gap: 30px;
+    justify-content: start;
+    padding: 20px;
 }
 
-/* Individual card styling */
+/* Individual Card Styling */
 .card {
+    width: 100%;
+    max-width: 260px;
     border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
     overflow: hidden;
+    background: #fff;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
+/* Image Resizing */
 .card-img-top {
     width: 100%;
-    height: 200px;
+    height: 220px;
     object-fit: cover;
 }
 
+/* Text Alignment */
 .card-body {
-    padding: 15px;
-    background-color: #fff;
+    padding: 20px;
+    text-align: left;
 }
 
+/* Card Title */
 .card-title {
-    font-size: 1.25rem;
+    font-size: 1.3rem;
+    font-weight: bold;
     margin-bottom: 10px;
+    color: #222;
+}
+
+/* Card Text */
+.card-text {
+    font-size: 1rem;
+    color: #444;
+    margin-bottom: 15px;
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.action-buttons .cart-btn,
+.action-buttons .wishlist-btn,
+.action-buttons .whatsapp-btn {
+    padding: 12px 15px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Cart Button */
+.action-buttons .cart-btn {
+    background-color: #28a745; /* Green */
+}
+.action-buttons .cart-btn:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+
+/* Wishlist Button */
+.action-buttons .wishlist-btn {
+    background-color: #007bff; /* Blue */
+}
+.action-buttons .wishlist-btn:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+/* WhatsApp Button */
+.action-buttons .whatsapp-btn {
+    background-color: #25d366; /* WhatsApp Green */
+}
+.action-buttons .whatsapp-btn:hover {
+    background-color: #1da851;
+    transform: scale(1.05);
+}
+
+/* Cart Counter */
+#cart-count {
+    font-weight: bold;
     color: #333;
 }
 
-.card-text {
-    font-size: 0.9rem;
-    color: #555;
-    line-height: 1.5;
+/* Responsive Adjustments */
+@media (max-width: 1200px) {
+    .cards-wrapper {
+        grid-template-columns: repeat(4, minmax(250px, 1fr));
+    }
 }
 
-.card-text strong {
-    color: #000;
+@media (max-width: 992px) {
+    .cards-wrapper {
+        grid-template-columns: repeat(3, minmax(250px, 1fr));
+    }
 }
 
-.text-muted {
-    font-size: 0.8rem;
-    color: #888;
+@media (max-width: 768px) {
+    .cards-wrapper {
+        grid-template-columns: repeat(2, minmax(250px, 1fr));
+    }
 }
 
-/* No items message styling */
-.no-items {
-    text-align: center;
-    margin-top: 50px;
-    font-size: 1.2rem;
-    color: #666;
+@media (max-width: 576px) {
+    .cards-wrapper {
+        grid-template-columns: repeat(1, minmax(250px, 1fr));
+    }
 }
