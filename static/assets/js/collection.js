@@ -1,34 +1,38 @@
+function handleAddToCart(itemId) {
+    fetch('/check-login-status/')
+        .then(response => response.json())
+        .then(data => {
+            if (data.is_authenticated) {
+                addToCart(itemId); // Call add to cart if logged in
+            } else {
+                alert("You must be logged in to add items to the cart.");
+                window.location.href = '/login/';  // Optionally redirect to login
+            }
+        })
+        .catch(error => console.error("Error:", error));
+}
+
 function addToCart(itemId) {
     fetch(`/add-to-cart/${itemId}/`, {
         method: 'POST',
         headers: {
-            'X-CSRFToken': getCookie('csrftoken'),
-            'Content-Type': 'application/json'
+            'X-CSRFToken': getCookie('csrftoken')  // Ensure CSRF token is included
         }
     })
     .then(response => response.json())
     .then(data => {
         if (data.message) {
             alert(data.message);
-            document.getElementById('cart-count').innerText = data.cart_count;
+            updateCartCount(data.cart_count);
         } else {
             alert(data.error);
         }
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        alert("An error occurred while adding to the cart.");
     });
 }
-
-// CSRF Token Helper
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        let cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            let cookie = cookies[i].trim();
-            if (cookie.startsWith(name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
+function updateCartCount(count) {
+    document.getElementById("cart-count").textContent = count;
 }

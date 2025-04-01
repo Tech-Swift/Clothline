@@ -39,6 +39,11 @@ urlpatterns = [
 
     path('accounts/', include('allauth.urls')),
 
+    path('check-login-status/', views.check_login_status, name='check_login_status'),
+
+    path('add-to-cart/<int:item_id>/', views.add_to_cart, name='add_to_cart'),
+
+
     path('cart/', views.cart_detail, name='cart_detail'),
 
     path('cart/add/<int:item_id>/', views.add_to_cart, name='add_to_cart'),

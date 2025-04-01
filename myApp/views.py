@@ -58,21 +58,34 @@ def signup(request):
 
 def add_to_cart(request, item_id):
     if not request.user.is_authenticated:
+        # Return a JSON response with an error if the user is not logged in
         return JsonResponse({'error': 'You must be logged in to add items to the cart'}, status=401)
 
     item = get_object_or_404(Item, id=item_id)
+
+    # Get or create the customer associated with the logged-in user
     customer, created = Customer.objects.get_or_create(user=request.user)
-    
+
+    # Get or create the cart for the customer
     cart, created = Cart.objects.get_or_create(customer=customer)
+
+    # Get or create the cart item for the given item in the cart
     cart_item, created = CartItem.objects.get_or_create(cart=cart, item=item)
     
     if not created:
+        # If the item already exists in the cart, increment the quantity
         cart_item.quantity += 1
         cart_item.save()
 
+    # Get the updated cart item count
     cart_count = CartItem.objects.filter(cart=cart).count()
 
+    # Return a success response with the updated cart count
     return JsonResponse({'message': 'Item added to cart!', 'cart_count': cart_count})
+
+
+def check_login_status(request):
+    return JsonResponse({'is_authenticated': request.user.is_authenticated})
 
 
 @login_required
