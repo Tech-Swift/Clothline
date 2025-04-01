@@ -57,37 +57,31 @@ def signup(request):
     return render(request, "signup.html", {"form": form})
 
 def add_to_cart(request, item_id):
-    if not request.user.is_authenticated:
-        # Return a JSON response with an error if the user is not logged in
-        return JsonResponse({'error': 'You must be logged in to add items to the cart'}, status=401)
+    if request.method == "POST":
+        item = get_object_or_404(Item, id=item_id)
 
-    item = get_object_or_404(Item, id=item_id)
+        # Get or create customer
+        customer, created = Customer.objects.get_or_create(user=request.user)
 
-    # Get or create the customer associated with the logged-in user
-    customer, created = Customer.objects.get_or_create(user=request.user)
+        # Get or create the cart for the customer
+        cart, created = Cart.objects.get_or_create(customer=customer)
 
-    # Get or create the cart for the customer
-    cart, created = Cart.objects.get_or_create(customer=customer)
+        # Get or create the cart item for the item in the cart
+        cart_item, created = CartItem.objects.get_or_create(cart=cart, item=item)
 
-    # Get or create the cart item for the given item in the cart
-    cart_item, created = CartItem.objects.get_or_create(cart=cart, item=item)
-    
-    if not created:
-        # If the item already exists in the cart, increment the quantity
-        cart_item.quantity += 1
-        cart_item.save()
+        if not created:
+            # If the item already exists in the cart, increment the quantity
+            cart_item.quantity += 1
+            cart_item.save()
 
-    # Get the updated cart item count
-    cart_count = CartItem.objects.filter(cart=cart).count()
+        # Get updated cart item count
+        cart_count = CartItem.objects.filter(cart=cart).count()
 
-    # Return a success response with the updated cart count
-    return JsonResponse({'message': 'Item added to cart!', 'cart_count': cart_count})
+        return JsonResponse({'message': 'Item added to cart!', 'cart_count': cart_count})
 
+    return JsonResponse({'error': 'Invalid request'}, status=400)
 
-def check_login_status(request):
-    return JsonResponse({'is_authenticated': request.user.is_authenticated})
-
-
+# View cart details
 @login_required
 def cart_detail(request):
     customer, created = Customer.objects.get_or_create(
@@ -99,33 +93,17 @@ def cart_detail(request):
         }
     )
 
+    # Fetch the cart and associated items
     cart = Cart.objects.filter(customer=customer).first()
     cart_items = cart.cartitem_set.all() if cart else []
+
+    # Calculate the total price of items in the cart
     total_price = sum(item.item.price * item.quantity for item in cart_items)
 
+    # Return the cart detail page with the cart items and total price
     return render(request, 'cart_detail.html', {'cart_items': cart_items, 'total_price': total_price})
 
-
-@login_required
-def add_to_cart(request, item_id):
-    if request.method == "POST":
-        item = get_object_or_404(Item, id=item_id)
-
-        customer, created = Customer.objects.get_or_create(user=request.user)
-        cart, created = Cart.objects.get_or_create(customer=customer)
-
-        cart_item, created = CartItem.objects.get_or_create(cart=cart, item=item)
-        if not created:
-            cart_item.quantity += 1  # Increase quantity if item already exists
-            cart_item.save()
-
-        cart_count = CartItem.objects.filter(cart=cart).count()
-
-        return JsonResponse({'message': 'Item added to cart!', 'cart_count': cart_count})
-
-    return JsonResponse({'error': 'Invalid request'}, status=400)
-
-
+# Remove item from cart
 @login_required
 def remove_from_cart(request, cart_item_id):
     cart_item = get_object_or_404(CartItem, id=cart_item_id)
@@ -135,15 +113,23 @@ def remove_from_cart(request, cart_item_id):
 
     return JsonResponse({'message': 'Item removed from cart!', 'cart_count': cart_count})
 
-
+# Add to wishlist
 @login_required
 def add_to_wishlist(request, item_id):
     if request.method == "POST":
         item = get_object_or_404(Item, id=item_id)
 
+        # Get or create the wishlist for the user
         wishlist, created = Wishlist.objects.get_or_create(user=request.user)
         wishlist.items.add(item)
 
         return JsonResponse({'message': 'Item added to wishlist!'})
 
     return JsonResponse({'error': 'Invalid request'}, status=400)
+
+
+def check_login_status(request):
+    return JsonResponse({'is_authenticated': request.user.is_authenticated})
+# Checkout page
+def checkout(request):
+    return render(request, 'checkout.html')
