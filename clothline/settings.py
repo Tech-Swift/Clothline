@@ -113,7 +113,7 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': '3306',
         'OPTIONS': {
-            'unix_socket': '/opt/lampp/var/mysql/mysql.sock',
+            'unix_socket': '/run/mysqld/mysqld.sock',
         },
     }
 }
